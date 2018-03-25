@@ -1,0 +1,113 @@
+<?php
+
+// hook_menu
+
+function ilm_menu() {
+	$items['ilmaleht'] = array(
+		'title' => 'Ilma leht',
+		'type' => MENU_NORMAL_ITEM,
+		'page callback' => 'ilmaleht',
+		'access arguments' => array('access content')
+	);
+	return $items;
+}
+
+function ilmaleht() {
+
+$url = "http://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
+	$xml = simplexml_load_file($url);
+
+	
+
+	$output = "<p>Andmete allikas <a href='www.ilmateenistus.ee'> Ilmateenistus.ee </a> </p>";
+	$output .= "<ul>";
+	foreach ($xml as $data ){
+
+			$name=$data->name;
+			$speed=$data->windspeed;
+			$temp=$data->airtemperature;
+			$output .= "<li><div class='title'>Asukoht: ".$name."</div><div>Tuule kiirus: ".$speed."</div><div>Temperatuur:  ".$temp. "</div></li><br>";
+		}
+
+	$output .= "</ul>";
+	return $output;
+}
+
+
+
+
+
+
+
+/*
+$url = "http://www.ilmateenistus.ee/ilma_andmed/xml/observations.php";
+	$xml = simplexml_load_file($url);
+
+	echo "<ul>";
+
+	foreach ($xml as $data ):
+			$name=$data->name;
+			$speed=$data->windspeed;
+			$temp=$data->airtemperature;
+			echo "<li><div class='title'>Asukoht: </div>",$name,"<p>Tuule kiirus: </p>",$speed,"<p>Temperatuur: </p></li> ",$temp;
+			
+	endforeach;	
+
+	echo "</ul>";*/
+/*
+$html = "";
+
+$url = 'http://www.ilmateenistus.ee/ilma_andmed/xml/forecast.php';
+$xml = simplexml_load_file($url);
+for($i = 0; $i < 10; $i++){
+	$date = $xml->forecasts[$i]->forecast['date'];
+	$html .= "<p>$date</p>";
+}
+echo $html;
+
+
+
+*/
+
+
+
+/*
+
+$xml = simplexml_load_file("http://www.ilmateenistus.ee/ilma_andmed/xml/forecast.php");
+
+
+foreach($xml->children() as $second_child)
+  {
+  
+    echo   $second_child['date'] ;
+    
+	
+	  foreach($second_child->children() as $third_child)
+		{
+			if(null !== $third_child){
+			
+			echo    $third_child ;
+			} else{
+				echo "";
+			}
+			
+			  	foreach($third_child->children() as $fourth_child)
+				  {
+				   
+				   // echo  $fourth_child ;
+					 
+					  	foreach($fourth_child->children() as $fifth_child)
+						{
+						
+						echo  $fifth_child . "<br>" ;
+							 
+						}
+					
+				  }
+			
+		}
+	
+  }
+*/
+
+// var_dump($xml);

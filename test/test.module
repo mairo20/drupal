@@ -1,0 +1,58 @@
+<?php
+
+/**
+  * testimine
+  * test.module
+  */
+
+// hook_block_info()
+function test_block_info() {
+  $blocks = array();
+  $blocks ['testblock'] = array(
+    'info' => t('MY custom block')
+  );
+  return $blocks;
+}
+
+// hook_block_view
+function test_block_view($delta = '') {
+
+  $block = array();
+  switch ($delta) {
+    case 'testblock':
+      $block['subject'] = t('See on minu custom block');
+    // $block['content'] = test_list();
+      break;
+  }
+  return $block;
+}
+/*
+function test_list(){
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_node','node')
+      ->entityCondition('bundle','article')
+      ->propertyCondition('status',NODE_PUBLISHED)
+      ->propertyOrderBy('created','DESC')
+      ->range(0,5);
+
+  $result = $query->execute();
+
+  if(isset($result['node'])) {
+      $news_items_nids = array_keys($result['node']);
+      $news_items = entity_load('node', $news_items_nids);
+  }
+
+  $output = "<ul>\n";
+  foreach ($news_items as $news_item) {
+    $list ="<li>\n";
+    $list .="<a href='/node'" . $news_item->nid.">".t($news_item->title) ."</a>";
+    $list .="</li>\n";
+    $output .= $list;
+  }
+  $output = "</ul>\n";
+  return $output;
+}
+
+*/
+

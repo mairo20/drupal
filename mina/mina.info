@@ -1,0 +1,4 @@
+name = "mina"
+description = "Testimiseks mingi  proov ..."
+core = "7.x"
+version = "7.x-1.0"
